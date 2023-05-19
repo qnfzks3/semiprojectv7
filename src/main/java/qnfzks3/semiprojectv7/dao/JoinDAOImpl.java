@@ -4,15 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import qnfzks3.semiprojectv7.model.Member;
 import qnfzks3.semiprojectv7.model.Zipcode;
+import qnfzks3.semiprojectv7.repository.ZipcodeRepository;
 
 import java.util.List;
 
 @Repository("jndao")
 public class JoinDAOImpl implements JoinDAO {
 
+    @Autowired
+    ZipcodeRepository zipcodeRepository;
+
     @Override
     public List<Zipcode> selectZipcode(String dong) {
-        return null;
+        return zipcodeRepository.findZipcodeByDong(dong);
     }
 
     @Override
