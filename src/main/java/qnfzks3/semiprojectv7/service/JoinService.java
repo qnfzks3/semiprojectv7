@@ -12,4 +12,6 @@ public interface JoinService {
 
     boolean loginMember(Member m);
 
+    int insertMember(Member m);
+
 }
