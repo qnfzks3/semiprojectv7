@@ -12,6 +12,8 @@ import qnfzks3.semiprojectv7.repository.ZipcodeRepository;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @SpringBootTest
 public class MemberTest {
 
@@ -41,10 +43,11 @@ public class MemberTest {
     public void updateZipByDong()
     {
 
-        Member m = new Member(2L,"abc123","123456",
+        Member m = new Member(null,"abc123","123456",
                 "1234567","abc123","987xyz","123-456",
                 "서울시 구로구 구로동","더조은 IT 아카데미",
                 "abc123@987xyz.co.kr","123-1234-5678",null);
+        //null 이라고 해도 자동으로 값이 채워지도록 dao에 설정 했기 때문에 상관없다.
 
 
 
@@ -66,6 +69,25 @@ public class MemberTest {
         memberRepository.delete(m);
 
 
+    }
+
+    @Test
+    @DisplayName("member login")
+    public void loginZipByDong()
+    {
+
+        Member m = new Member();
+        m.setUserid("abc123");
+        m.setPasswd("abc123");
+
+
+
+        assertNull(memberRepository.countByUseridAndPasswd(m.getUserid(),m.getPasswd()));
+
+
+        m.setUserid("abc123");
+        m.setPasswd("987xyz");
+        assertNull(memberRepository.countByUseridAndPasswd(m.getUserid(),m.getPasswd()));
     }
 
 
