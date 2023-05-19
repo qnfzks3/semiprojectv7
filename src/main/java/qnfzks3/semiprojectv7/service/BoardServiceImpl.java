@@ -16,8 +16,8 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public List<Board> readBoard(int cpage) { //dao에서 정의한 params 데이터들 가져온다.  //게시판 창을 띄울 때 사용할 함수를 정의
-        int stbno = (cpage - 1) * 25;          //
-        return bddao.selectBoard(stbno);
+        //int stbno = (cpage - 1) * 25;          //
+        return bddao.selectBoard(cpage); //cpage 를 그냥 넣어줌 -그냥 이미 다 계산이 된 상태여서
     }
 
     @Override

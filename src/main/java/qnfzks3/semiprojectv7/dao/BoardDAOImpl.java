@@ -2,6 +2,8 @@ package qnfzks3.semiprojectv7.dao;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import qnfzks3.semiprojectv7.model.Board;
 import qnfzks3.semiprojectv7.repository.BoardRepository;
@@ -16,8 +18,11 @@ public class BoardDAOImpl implements BoardDAO {
     BoardRepository boardRepository;
 
     @Override
-    public List<Board> selectBoard(int stbno) {
-        return boardRepository.findAll();  //전체 데이터 글 보기
+    public List<Board> selectBoard(int cpage) {
+        Pageable paging = PageRequest.of(cpage,25);
+
+        return boardRepository.findAll(paging).getContent();  //전체 데이터 글 보기
+
     }
     @Override
     public List<Board> selectBoard(Map<String, Object> params) {
