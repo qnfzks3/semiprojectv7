@@ -5,7 +5,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
+
+import org.springframework.data.domain.Pageable;
 import qnfzks3.semiprojectv7.model.Zipcode;
+
 import qnfzks3.semiprojectv7.repository.ZipcodeRepository;
 
 import java.util.List;
@@ -24,4 +30,37 @@ public class ZipcodeTest {
 
         System.out.println(addr);
     }
+
+    @Test
+    @DisplayName("zipcode page1")
+    public void pageZipcode()
+    {
+        Pageable pageable = PageRequest.of(1,15);  //1 페이지당 15개 데이터 가져와  - 1페이지
+        Page<Zipcode> page = zipcodeRepository.findAll(pageable);
+        List<Zipcode> zips = page.getContent();
+        System.out.println(zips);
+    }
+
+
+
+    @Test
+    @DisplayName("zipcode page2")
+    public void page2Zipcode()
+    {
+        String dong= "%"+"구로"+"%";
+
+        Pageable pageable = PageRequest.of(0,15);  //1 페이지당 15개 데이터 가져와  - 1페이지
+
+        Page<Zipcode> page = zipcodeRepository.findByDongLike(dong, pageable);
+
+        List<Zipcode> zips = page.getContent();
+        System.out.println(zips);
+
+
+
+
+    }
+
+
+
 }
