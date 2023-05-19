@@ -62,7 +62,7 @@ public class BoardController {
 
 
     @GetMapping("/view")
-    public ModelAndView view(String bno){  //주소창에 bno를 넘겨 받아서 bno를 토대로 게시글을 가져오자
+    public ModelAndView view(int bno){  //주소창에 bno를 넘겨 받아서 bno를 토대로 게시글을 가져오자
         ModelAndView mv= new ModelAndView();
         mv.addObject("bd",bdsrv.readOneBoard(bno));  //프론트쪽으로 보냄 - 보낼 때 데이터를 bd로 가내겠다.
         mv.setViewName("board/view");

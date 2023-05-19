@@ -1,6 +1,7 @@
 package qnfzks3.semiprojectv7.service;
 
 import qnfzks3.semiprojectv7.model.Board;
+import qnfzks3.semiprojectv7.model.Member;
 
 import java.util.List;
 
@@ -14,5 +15,7 @@ public interface BoardService {
 
     boolean newBoard(Board bd);
 
-    Board readOneBoard(String bno);
+    Board readOneBoard(int bno);
+
+
 }

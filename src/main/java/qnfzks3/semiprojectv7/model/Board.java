@@ -3,14 +3,11 @@ package qnfzks3.semiprojectv7.model;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="member")
+@Table(name="BOARD")
 @Setter
 @Getter
 @ToString
@@ -18,12 +15,19 @@ import java.time.LocalDateTime;
 @AllArgsConstructor//date - 롬북의 date  -셋겟 생성자
 public class Board {
 
+
     @Id
-    private String bno;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long bno;
     private String title;
     private String userid;
-    private String thumbs;
-    private String views;
+
+    @Column(insertable = false,updatable = false)
+    private Integer thumbs;
+
+    @Column(insertable = false,updatable = false)
+    private Integer views;
+
     private String content;
 
     @CreatedDate

@@ -4,17 +4,21 @@ package qnfzks3.semiprojectv7.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import qnfzks3.semiprojectv7.model.Board;
+import qnfzks3.semiprojectv7.repository.BoardRepository;
 
 import java.util.List;
 import java.util.Map;
 
 @Repository("bddao")
 public class BoardDAOImpl implements BoardDAO {
+
+    @Autowired
+    BoardRepository boardRepository;
+
     @Override
     public List<Board> selectBoard(int stbno) {
-        return null;
+        return boardRepository.findAll();  //전체 데이터 글 보기
     }
-
     @Override
     public List<Board> selectBoard(Map<String, Object> params) {
         return null;
@@ -32,11 +36,11 @@ public class BoardDAOImpl implements BoardDAO {
 
     @Override
     public int insertBoard(Board bd) {
-        return 0;
+        return Math.toIntExact(boardRepository.save(bd).getBno());
     }
 
     @Override
-    public Board selectOneBoard(String bno) {
-        return null;
+    public Board selectOneBoard(int bno) {
+        return boardRepository.findById((long) bno).get();   //본문 보기 -
     }
 }
