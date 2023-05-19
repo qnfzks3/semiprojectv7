@@ -41,6 +41,7 @@ public class BoardDAOImpl implements BoardDAO {
 
     @Override
     public Board selectOneBoard(int bno) {
+        boardRepository.countViewBoard((long) bno);    //조회수 증가 할수 있도록
         return boardRepository.findById((long) bno).get();   //본문 보기 -
     }
 }
