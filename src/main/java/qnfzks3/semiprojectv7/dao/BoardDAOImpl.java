@@ -74,8 +74,30 @@ public class BoardDAOImpl implements BoardDAO {
 
     @Override
     public int countBoard(Map<String, Object> params) {
+        String fkey=params.get("fkey").toString();
+        String ftype=params.get("ftype").toString();
 
-        return 0;
+
+        int cnt = 0;
+        switch (ftype) {
+
+            //이름 뒤에 like 붙인거 만으로도 자동실행
+            //제목으로 검색
+            case "title": cnt = boardRepository.countByTitleContains(fkey); break;
+            //제목+본문으로 검색
+            case "titcont":cnt = boardRepository.countByTitleContainsOrContentContains(fkey, fkey); break;
+            //작성자로 검색
+            case "userid":
+                fkey=fkey.replace("%","");
+                cnt = boardRepository.countByUserid(fkey); break;
+            //본문으로 검색
+            case "content":cnt = boardRepository.countByContentContains(fkey);
+
+        }
+
+        return (int) Math.ceil(cnt/25);
+
+
     }
 
     @Override
