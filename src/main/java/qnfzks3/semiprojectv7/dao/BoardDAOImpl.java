@@ -28,8 +28,15 @@ public class BoardDAOImpl implements BoardDAO {
     }
     @Override
     public List<Board> selectBoard(Map<String, Object> params) {
+        // like 검색에 대한 query method
+        //findByTitleLike      :%검색어%  (%문자사용 필요o)
+        //findByTitleContains  :%검색어%  (%문자제공 필요x)
+        //findByTitleStartWith  : 검색어% (%문자 제공 필요 x)
+        //findByTitleEndsWith   : %검색어 (%문자 제공 필요 x)
+
+
         //푸는 작업
-        String fkey='%'+params.get("fkey").toString()+'%';
+        String fkey=params.get("fkey").toString();
         String ftype=params.get("ftype").toString();
         int cpage = (int) params.get("stbno");
 
@@ -41,15 +48,15 @@ public class BoardDAOImpl implements BoardDAO {
 
             //이름 뒤에 like 붙인거 만으로도 자동실행
             //제목으로 검색
-            case "title": result = boardRepository.findByTitleLike(paging, fkey); break;
+            case "title": result = boardRepository.findByTitleContains(paging, fkey); break;
             //제목+본문으로 검색
-            case "titcont":result = boardRepository.findByTitlelikeOrContentLike(paging, fkey, fkey); break;
+            case "titcont":result = boardRepository.findByTitleContainsOrContentContains(paging, fkey, fkey); break;
             //작성자로 검색
             case "userid":
                 fkey=fkey.replace("%","");
                 result = boardRepository.findByUserid(paging, fkey); break;
             //본문으로 검색
-            case "content":result = boardRepository.findByContentLike(paging, fkey);
+            case "content":result = boardRepository.findByContentContains(paging, fkey);
 
         }
 
