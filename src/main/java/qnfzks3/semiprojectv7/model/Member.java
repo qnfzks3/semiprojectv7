@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity           //엔티티 라고 정의
-@Table(name="member") //엔티티를 매핑할 데이터베이스 테이블의 이름을 지정
+@Table(name="MEMBER") //엔티티를 매핑할 데이터베이스 테이블의 이름을 지정
 @Setter            //setter,getter ,Tostring자동 생성
 @Getter
 @ToString

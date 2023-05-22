@@ -22,7 +22,7 @@ public class MemberTest {
 
     @Test
     @DisplayName("member save")
-    public void findZipByDong()
+    public void saveMember()
     {
 
        Member m = new Member(null,"abc123","123456",
@@ -40,7 +40,7 @@ public class MemberTest {
 
     @Test
     @DisplayName("member update")
-    public void updateZipByDong()
+    public void updateMember()
     {
 
         Member m = new Member(null,"abc123","123456",
@@ -58,7 +58,7 @@ public class MemberTest {
 
     @Test
     @DisplayName("member delete")
-    public void deleteZipByDong()
+    public void deleteMember()
     {
 
         Member m = new Member();
@@ -73,7 +73,7 @@ public class MemberTest {
 
     @Test
     @DisplayName("member login")
-    public void loginZipByDong()
+    public void loginMember()
     {
 
         Member m = new Member();
