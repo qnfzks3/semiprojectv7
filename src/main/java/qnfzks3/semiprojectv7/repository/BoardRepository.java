@@ -1,5 +1,6 @@
 package qnfzks3.semiprojectv7.repository;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -21,12 +22,23 @@ public interface BoardRepository extends PagingAndSortingRepository<Board,Long> 
    //jpaRepository 에서는 DML은 지원 X
    //단, Modifying, Transactional등을 추가하면 사용 가능
 
+
+
     @Modifying //데이터 수정 어노테이션
-    @Transactional  //  트랜잭션 범위에서 메서드를 실행하기 위해 사용
-    @Query("update Board set views= views+1 Where bno= :bno")
+    @Transactional //  트랜잭션 범위에서 메서드를 실행하기 위해 사용
+    @Query(
+            "update Board set views = views + 1 where bno = :bno")
     int countViewBoard(@Param("bno") long bno);
 
+    //@Query("select ceil(count(bno)/25) from Board")
+    int countBoardBy();
 
 
+    List<Board> findByTitle(Pageable paging, String fkey);
 
+    List<Board> findByTitleOrContent(Pageable paging, String fkey1, String fkey2);
+
+    List<Board> findByUserid(Pageable paging, String fkey);
+
+    List<Board> findByContent(Pageable paging, String fkey);
 }

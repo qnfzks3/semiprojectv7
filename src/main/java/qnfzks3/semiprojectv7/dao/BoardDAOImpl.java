@@ -4,6 +4,7 @@ package qnfzks3.semiprojectv7.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import qnfzks3.semiprojectv7.model.Board;
 import qnfzks3.semiprojectv7.repository.BoardRepository;
@@ -19,23 +20,52 @@ public class BoardDAOImpl implements BoardDAO {
 
     @Override
     public List<Board> selectBoard(int cpage) {
-        Pageable paging = PageRequest.of(cpage,25);
+        //페이징 시 정렬 순서 지정 - PageRequest.of(cpage,25,Sort.by("bno").descending());
+        Pageable paging = PageRequest.of(cpage,25, Sort.Direction.DESC,"bno");
 
         return boardRepository.findAll(paging).getContent();  //전체 데이터 글 보기
 
     }
     @Override
     public List<Board> selectBoard(Map<String, Object> params) {
+        //푸는 작업
+        String fkey=params.get("fkey").toString();
+        String ftype=params.get("ftype").toString();
+        int cpage = (int) params.get("stbno");
+
+        Pageable paging = PageRequest.of(cpage,25, Sort.Direction.DESC,"bno");
+
+        List <Board> result=null;
+
+        switch (ftype) {
+
+
+            //제목으로 검색
+            case "title": result = boardRepository.findByTitle(paging, fkey); break;
+            //제목+본문으로 검색
+            case "titcont":result = boardRepository.findByTitleOrContent(paging, fkey, fkey); break;
+            //작성자로 검색
+            case "userid":result = boardRepository.findByUserid(paging, fkey); break;
+            //본문으로 검색
+            case "content":result = boardRepository.findByContent(paging, fkey);
+
+        }
+
         return null;
     }
 
     @Override
     public int countBoard() {
-        return 0;
+        // select ceil(count(bno)/25) from board
+        int allcnt = boardRepository.countBoardBy();
+
+        return (int) Math.ceil(allcnt / 25);
+
     }
 
     @Override
     public int countBoard(Map<String, Object> params) {
+
         return 0;
     }
 
