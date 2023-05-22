@@ -29,7 +29,7 @@ public class BoardDAOImpl implements BoardDAO {
     @Override
     public List<Board> selectBoard(Map<String, Object> params) {
         //푸는 작업
-        String fkey=params.get("fkey").toString();
+        String fkey='%'+params.get("fkey").toString()+'%';
         String ftype=params.get("ftype").toString();
         int cpage = (int) params.get("stbno");
 
@@ -39,19 +39,21 @@ public class BoardDAOImpl implements BoardDAO {
 
         switch (ftype) {
 
-
+            //이름 뒤에 like 붙인거 만으로도 자동실행
             //제목으로 검색
-            case "title": result = boardRepository.findByTitle(paging, fkey); break;
+            case "title": result = boardRepository.findByTitleLike(paging, fkey); break;
             //제목+본문으로 검색
-            case "titcont":result = boardRepository.findByTitleOrContent(paging, fkey, fkey); break;
+            case "titcont":result = boardRepository.findByTitlelikeOrContentLike(paging, fkey, fkey); break;
             //작성자로 검색
-            case "userid":result = boardRepository.findByUserid(paging, fkey); break;
+            case "userid":
+                fkey=fkey.replace("%","");
+                result = boardRepository.findByUserid(paging, fkey); break;
             //본문으로 검색
-            case "content":result = boardRepository.findByContent(paging, fkey);
+            case "content":result = boardRepository.findByContentLike(paging, fkey);
 
         }
 
-        return null;
+        return result;
     }
 
     @Override
