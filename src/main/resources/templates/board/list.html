@@ -120,7 +120,7 @@
 
 
 
-              <li th:class="${(cpg + 1 lt cntpg)?'page-item':'page-item disabled'}">
+              <li th:class="${(cpg + 1 le cntpg)?'page-item':'page-item disabled'}">
                 <!--참이면 page-item 거짓이면 page-item disabled-->
                 <a class="page-link" th:href="|${pglink}${cpg + 1}|" th:text="다음"> </a>
               </li>
