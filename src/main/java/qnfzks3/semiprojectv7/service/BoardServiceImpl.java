@@ -26,7 +26,7 @@ public class BoardServiceImpl implements BoardService {
 
         // 처리시 사용할 데이터들을 해쉬맵에 담아서 보냄
         Map<String, Object> params = new HashMap<>();
-        params.put("cpage", cpage);
+        params.put("stbno", stbno);
         params.put("ftype", ftype);
         params.put("fkey", fkey);
 

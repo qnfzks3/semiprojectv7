@@ -1,12 +1,12 @@
 package qnfzks3.semiprojectv7.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import qnfzks3.semiprojectv7.model.Member;
 
 
-import java.util.List;
+
 
 public interface MemberRepository extends JpaRepository<Member,Long> {
 
