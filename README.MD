@@ -15,8 +15,10 @@
 +spring data jpa - 
 (JPA는 객체와 데이터베이스 간의 매핑을 통해 개발자가 SQL 쿼리를 직접 작성하지 않고도 데이터베이스를 조작할 수 있게 해줍니다. )
 
-+querydsl - Data JPA와 함께 사용되는 경우, QueryDSL을 사용하여 JPA 엔티티에 대한 동적인 쿼리를 작성할 수 있습니다.  
-+
++querydsl - Data JPA와 함께 사용되는 경우, 
+QueryDSL을 사용하여 JPA 엔티티에 대한 동적인 쿼리를 작성할 수 있습니다.  
+querydsl은 pom에서 dependencies 를 알트 엔터 해서 종속성 추가 , 검색창에
+querydsl를 검색해서 support jpa 로 추가했다.
 
 
 
