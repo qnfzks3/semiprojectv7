@@ -3,12 +3,15 @@ package qnfzks3.semiprojectv7.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import qnfzks3.semiprojectv7.model.Board;
 import qnfzks3.semiprojectv7.service.BoardService;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/board")
@@ -53,11 +56,12 @@ public class BoardController {
     }
 
     @PostMapping("/write")
-    public String writeok(Board bd){   //이름이 같으면 오류남
+    public String writeok(@Valid Board board, BindingResult br){   //이름이 같으면 오류남
         String viewPage ="error";   //error페이지
-        if(bdsrv.newBoard(bd)){   //만약 Service에 newBoard(bd)가
-            viewPage="redirect:/board/list?cpg=1";
+        if(br.hasErrors()){   // 만약 유효성 검사에서 문제(오류)가 생겼다면 여기로이동해라
+            viewPage="board/write";
         }
+        else bdsrv.newBoard(board);
 
         return viewPage;
     }
