@@ -33,6 +33,7 @@
           <div class="col-6">
             <input type="text" name="title" id="title"
                    class="form-control border-danger">
+            <!--유효성 검사-->
             <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-warning"></span>
             <!--보드 객체에 맴버 변수에 오류가 있을 때 오류 내용 출력   #fields.hasErrors('title')- 해당 필드에 오류가 있다면  -->
             <!--th:errors="*{title}" 오류 내용을 출력해  - 오류 메세지를 컨트롤러에 있는 title 로 지정 -->
@@ -46,6 +47,9 @@
             <input type="text" name="userid" id="userid"
                    class="form-control border-danger bg-light"
                    readonly value="abc123">
+            <!--유효성 검사-->
+            <span th:if="${#fields.hasErrors('userid')}" th:errors="*{userid}" class="text-warning"></span>
+
           </div>
         </div>
 
@@ -55,6 +59,8 @@
           <div class="col-6">
                     <textarea name="content" id="content"
                               class="form-control border-danger" rows="15"></textarea>
+            <!--유효성 검사-->
+            <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="text-warning"></span>
           </div>
         </div>
 
