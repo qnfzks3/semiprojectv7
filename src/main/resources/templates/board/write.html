@@ -24,7 +24,8 @@
     </div>
 
     <div class="row mt-2 offset-2 col-8">
-      <form class="card card-body bg-light" name="bdfrm" id="bdfrm">
+      <form class="card card-body bg-light" name="bdfrm" id="bdfrm" th:object="${board}">
+                  <!-- 컨트롤러에 이걸로 가져온거 m.addAttribute("board",new Board()); -->
 
         <div class="row">
           <label class="col-3 col-form-label text-danger text-end"
@@ -32,6 +33,9 @@
           <div class="col-6">
             <input type="text" name="title" id="title"
                    class="form-control border-danger">
+            <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+            <!--보드 객체에 맴버 변수에 오류가 있을 때 오류 내용 출력   #fields.hasErrors('title')- 해당 필드에 오류가 있다면  -->
+            <!--th:errors="*{title}" 오류 내용을 출력해  - 오류 메세지를 컨트롤러에 있는 title 로 지정 -->
           </div>
         </div>
 
