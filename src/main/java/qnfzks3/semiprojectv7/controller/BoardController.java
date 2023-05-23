@@ -56,11 +56,12 @@ public class BoardController {
     }
 
     @PostMapping("/write")
-    public String writeok(@Valid Board board, BindingResult br){   //이름이 같으면 오류남
-        String viewPage ="error";   //error페이지
+    public String writeok(@Valid Board board, BindingResult br){   //이름이 같으면 오류남      오류 메세지를 담아둘 br 설정
+        String viewPage ="redirect:/board/list?cpg=1";   // 정상 주소
         if(br.hasErrors()){   // 만약 유효성 검사에서 문제(오류)가 생겼다면 여기로이동해라
             viewPage="board/write";
         }
+
         else bdsrv.newBoard(board);
 
         return viewPage;
