@@ -67,23 +67,39 @@ public class JoinController {
 
 
 
-    @PostMapping("/joinme")
-    public ModelAndView joinme(Member mb) {
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("join/joinme");
-        mv.addObject("mb", mb);
+    @GetMapping("/joinme")                   //기존에 있던 포스트매핑을 겟으로 바꾸고 포스트매핑을 하나 더 만든다.
+    public String joinme(Model m) {
 
-        return mv;
+
+        m.addAttribute("member",new Member());
+
+        return "join/joinme";
     }
 
-    @PostMapping("/joinok")
-    public String joinok(Member m, String grecaptcha) {
-        String view = "error";
+    @PostMapping("/joinme")                   //기존에 있던 포스트매핑을 겟으로 바꾸고 포스트매핑을 하나 더 만든다.
+    public String joinme(@Valid Member member , BindingResult br,HttpSession session ) {  //이전 화면에서 세션에 넣은 주민번호등 초기화 해주는 느낌으로 써줌
 
-        if (jnsrv.newMember(m))
-            view = "join/joinok";
+        String viewPage = "redirect:/join/joinok";
 
-        return view;
+        if (br.hasErrors())
+            viewPage="join/joinme";
+        else {
+            jnsrv.newMember(member);
+            session.invalidate();
+        }
+
+
+        return viewPage;
+    }
+
+
+
+
+
+    @GetMapping("/joinok")
+    public String joinok() {
+
+        return "join/joinok";
     }
 
     // 우편번호 검색
@@ -92,6 +108,8 @@ public class JoinController {
     // 서블릿에서 제공하는 HttpServletResponse 객체를 이용하면
     // 스프링의 뷰리졸버 없이 바로 응답으로 출력할 수 있음
     // 단, 응답유형은 JSON 형식으로 함
+
+
     @ResponseBody
     @GetMapping("/zipcode")
     public void zipcode(String dong, HttpServletResponse res) {
