@@ -2,10 +2,12 @@ package qnfzks3.semiprojectv7.model;
 
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.CreatedDate;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Entity           //엔티티 라고 정의
@@ -21,16 +23,33 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mbno;
+
+
     private String name;
     private String jumin1;
     private String jumin2;
+
+    @NotBlank(message = "아이디를 기입해주세요")
+    @Length (min= 6,max = 18 , message = "아이디는 최소 6자, 최대 18자입니다.")
     private String userid;
+
+    @NotBlank(message = "비밀번호를 기입해주세요")
+    @Length (min= 6,max = 18 , message = "비밀번호는 최소 6자, 최대 18자입니다.")     //글자수 제한 지정
     private String passwd;
+
+
+
     private String zipcode;
+
+    @NotBlank(message = "주소를 기입해주세요")
     private String addr1;
+
+    @NotBlank(message = "상세 주소를 기입해주세요")
     private String addr2;
-    private String email;
-    private String phone;
+
+
+
+
 
     //@Temporal(TemporalType.TIMESTAMP)
     @CreatedDate                //현재 시간이 자동으로 삽입 되도록 어노테이션 해줌
@@ -41,5 +60,37 @@ public class Member {
     @Column(insertable = false, updatable = false)는
    설명 - 우리가 데이터를 업데이트 하거나 삽입 할 시에 이 regdate만은 변동되거나 하지 않도록 설정해줌
      */
+
+
+    ///--------------------------------------------------------------------------
+
+    @Transient           //필드 영속성은 지원 하지않는다 - 테이블과 무관하게 사용가능
+    @NotBlank(message = "우편번호를 기입해주세요")
+    private String zip1;
+
+    @Transient
+    @NotBlank(message = "우편번호를 기입해주세요")
+    private String zip2;
+
+    @Transient
+    @NotBlank(message = "이매일을 기입해주세요")
+    private String email1;
+
+    @Transient
+    @NotBlank(message = "이매일을 기입해주세요")
+    private String email2;
+
+
+
+
+
+    @Transient
+    @NotBlank(message = "전화번호를 기입해주세요")
+    private String tel2;
+
+
+    @Transient
+    @NotBlank(message = "전화번호를 기입해주세요")
+    private String tel3;
 
 }
