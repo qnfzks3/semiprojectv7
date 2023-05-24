@@ -1,15 +1,29 @@
 package qnfzks3.semiprojectv7.pilot;
 
 
+import org.apache.tomcat.util.buf.UriUtil;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriUtils;
 
+
+import javax.servlet.http.HttpSession;
+import javax.xml.ws.Response;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -93,6 +107,46 @@ public class PilotController {
         return "pilot/list";
     }
 
+    @GetMapping("/down")
+    public ResponseEntity<Resource> down(int pno) throws IOException {    //내려받을 파일<Resource>
+
+        String savePath= "C:/Java/bootUpload/";  //세이브 포인트 지정
+        String fname = "";
+
+        if (pno ==1) fname = "dog.jpg";
+        else if (pno ==2) {fname ="write.html";}
+        else if (pno ==3) {fname ="newOne.zip";}
+        else if (pno ==4) {fname="운동.jpg";}
+
+        //파일 이름에 한글이 포함된 경우 적절한 인코딩 작업 수행
+        fname  = UriUtils.encode(fname, StandardCharsets.UTF_8);  //import할때 참고하자 - UriUtils spring에 있는 함수
+
+        // 다운로드할 파일 객체 생성    ,  UrlResource은 예외를 메서드 시그니처에 추가
+        UrlResource resource = new UrlResource("file:"+(savePath+fname));
+
+
+        //MIMEE 타입 지정
+        //브라우저에 다운로드할 파일에 대한 정보 제공
+
+        HttpHeaders header = new HttpHeaders();
+        header.add("Content-Type", Files.probeContentType(Paths.get(savePath+fname)));
+
+        header.add("Content-Disposition","attachment; filename="+fname+"");
+
+        //브라우저로 파일 전송하기
+        return ResponseEntity.ok().headers(header).body(resource);
+
+
+    }
+
+
+    @GetMapping("/showimg")
+    @ResponseBody     //view 없이 본문 내용 출력
+    public Resource showimg() throws MalformedURLException {
+        String fname = "C:/Java/bootUpload/"+"dog.jpg";
+
+        return new UrlResource("file:"+ fname);
+    }
 
 
 }
