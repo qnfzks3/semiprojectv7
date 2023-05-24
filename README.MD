@@ -3,7 +3,7 @@
 
 +spring web
 
-+thymeleaf
++thymeleaf  Thymeleaf를 사용하여 동적으로 HTML을 생성하고 클라이언트에게 전송할 수 있습니다
 
 +spring boot devtools
 
@@ -27,6 +27,17 @@ querydsl를 검색해서 support jpa 로 추가했다.
 - 정적 - 컴파일이 실행 된 후 변경되지 않는 고정된 변수나 값들 
 - 동적 - 컴파일이 실행 된 후 변수나 값이 변경 가능한 것들 
 
+
+
++ 레포지토리 -> Model -> DAO - > Servic - > Controller -> html
+                          
++ css -> html  <- js (버튼이나 동작)
+
+
++ 레포지토리 -> Model -> DAO - > Servic(utils) - > Controller -> html
+ 
+선생님은 역순으로 했다.                             
+
 5/19 목표
 어떻게 구현되는지 알기
 
@@ -37,3 +48,17 @@ querydsl를 검색해서 support jpa 로 추가했다.
 3. 필요한 라이브러리 추가
 
 4. 모델 클래스 엔티티정의, 리퍼짓토리 
+
+5/23 목표
+로그인 시 로그인 버튼에서 로그아웃 버튼으로 바뀌도록
+
+5/24
+
+파일 업로드 , 파일 다운로드 - 만들기
+
+
+
+
+
+
+

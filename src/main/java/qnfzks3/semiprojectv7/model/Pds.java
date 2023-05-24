@@ -1,7 +1,9 @@
 package qnfzks3.semiprojectv7.model;
 
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.CreatedDate;
+import qnfzks3.semiprojectv7.service.PdsService;
 
 
 import javax.persistence.*;
@@ -18,6 +20,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @ToString
 public class Pds {
+
+    @Autowired PdsService pdssrv;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

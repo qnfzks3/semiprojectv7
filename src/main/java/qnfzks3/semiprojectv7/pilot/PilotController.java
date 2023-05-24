@@ -34,9 +34,9 @@ import java.util.UUID;
 @RequestMapping("/pilot")
 public class PilotController {
 
-    @GetMapping("/write")
+    @GetMapping("/write")      // pilot/write 이 경로로 오게될 경우 실행되도록 하기위해
     public String write(){
-        return "pilot/write";
+        return "pilot/write"; //아래 PostMapping 이 실행 되도록
     }
 
 
@@ -44,7 +44,7 @@ public class PilotController {
     @PostMapping("/write") //전송된 데이터 처리
     public String writeok(String title, String content, Model m , MultipartFile attach) throws IOException {
         
-        //알반 폼 요소 처리
+        //일반 폼 요소 처리
         m.addAttribute("title",title);
         m.addAttribute("content",content);
 
@@ -72,7 +72,7 @@ public class PilotController {
             m.addAttribute("uuid",uuid);
 
             //파일 이름과 확장자 분리하기 -
-            String fileName = fname.split("[.]")[0];
+                String fileName = fname.split("[.]")[0];
             String fileExt=fname.split("[.]")[1];
 
 /*
@@ -128,7 +128,7 @@ public class PilotController {
         //MIMEE 타입 지정
         //브라우저에 다운로드할 파일에 대한 정보 제공
 
-        HttpHeaders header = new HttpHeaders();
+        HttpHeaders header = new HttpHeaders();      //헤더에 맞춰서 작성해서
         header.add("Content-Type", Files.probeContentType(Paths.get(savePath+fname)));
 
         header.add("Content-Disposition","attachment; filename="+fname+"");
@@ -145,7 +145,7 @@ public class PilotController {
     public Resource showimg() throws MalformedURLException {
         String fname = "C:/Java/bootUpload/"+"dog.jpg";
 
-        return new UrlResource("file:"+ fname);
+        return new UrlResource("file:"+ fname);    //지정한 file 을 읽어서 , fname 으로 보낸다.
     }
 
 
