@@ -27,7 +27,7 @@ public interface BoardRepository extends PagingAndSortingRepository<Board,Long> 
     @Modifying //데이터 수정 어노테이션
     @Transactional //  트랜잭션 범위에서 메서드를 실행하기 위해 사용
     @Query(
-            "update Board set views = views + 1 where bno = :bno")
+            "update Board set views = views + 1 where bno = :bno") // 방문수
     int countViewBoard(@Param("bno") long bno);
 
     //@Query("select ceil(count(bno)/25) from Board")

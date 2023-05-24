@@ -90,8 +90,7 @@
                     </div>
 
                     <div class="row col-11 offset-1 mb-3 align-items-center">
-                        <label class="col-2 form-label text-danger text-end"
-                               for="repasswd">비밀번호 확인</label>
+                        <label class="col-2 form-label text-danger text-end" for="repasswd">비밀번호 확인</label>
                         <div class="col-3">
                             <input type="password" name="repasswd" id="repasswd"
                                    class="form-control border-danger"> </div>
@@ -172,9 +171,7 @@
                         <div class="col-2">
                             <input type="text" name="tel2" id="tel2" class="form-control border-danger" th:value="${member.tel2}"> </div>
                         <div class="col-2">
-                            <input type="text" name="tel3" id="tel3"
-                                   class="form-control border-danger"
-                                   th:value="${member.tel3}"> </div>
+                            <input type="text" name="tel3" id="tel3" class="form-control border-danger" th:value="${member.tel3}"> </div>
                         <span class="col text-warning" th:if="${#fields.hasErrors('tel2') or #fields.hasErrors('tel3')}" th:errors="*{tel2}"></span>
                     </div>
 

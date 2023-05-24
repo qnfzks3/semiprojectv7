@@ -1,7 +1,7 @@
 
 
 
-//새글 쓰기
+//새글 쓰기  - 새글쓰기 버튼을 눌렀을때 작동시키기 위해서
 const writebtn =document.querySelector("#writebtn");
 
 writebtn?.addEventListener('click',()=>{ //jsp에 있는 인풋의 name에 적힌 이름=> 폼에 적힌 인풋네임  bdfrm.title

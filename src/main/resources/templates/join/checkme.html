@@ -137,7 +137,7 @@
                             <div class="col-6">
                                 <input type="text" name="name" id="name2" class="form-control border-warning">
                                      <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-                                        <!--클래스의 맴버변수(name)에 오류가 있다면 컨트롤러에 어노테이션으로 적은 값을 출력하겠다.-->
+                                        <!--클래스의 맴버변수(name)에 오류가 있다면 컨트롤러에 어노테이션으로 notBlank에 적은 값을 출력하겠다.-->
                                 </div>
 
                         </div>

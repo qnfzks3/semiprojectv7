@@ -23,7 +23,8 @@ public class BoardDAOImpl implements BoardDAO {
         //페이징 시 정렬 순서 지정 - PageRequest.of(cpage,25,Sort.by("bno").descending());
         Pageable paging = PageRequest.of(cpage,25, Sort.Direction.DESC,"bno");
 
-        return boardRepository.findAll(paging).getContent();  //전체 데이터 글 보기
+        return boardRepository.findAll(paging).getContent();
+        //전체 데이터 글 보기- findAll , getTotalPages() 를 사용하면 따로 count할필요없다.
 
     }
     @Override
