@@ -1,26 +1,27 @@
 # Semiproject
 +springboot 2.7.1
 
-+spring web
++ spring web
 
-+thymeleaf  Thymeleaf를 사용하여 동적으로 HTML을 생성하고 클라이언트에게 전송할 수 있습니다
++ thymeleaf  Thymeleaf를 사용하여 동적으로 HTML을 생성하고 클라이언트에게 전송할 수 있습니다
 
-+spring boot devtools
++ spring boot devtools
 
-+oracle jdbc (jdbc-애플리케이션과 데이터베이스 간의 연결을 제공하는 자바 API입니다.)
-+mariadb jdbc
++ oracle jdbc (jdbc-애플리케이션과 데이터베이스 간의 연결을 제공하는 자바 API입니다.)
++ mariadb jdbc
 
-+lombok            - DAO에서 어노테이션들 처럼 간단하게 만들어주는 역할 담당
++ lombok            - DAO에서 어노테이션들 처럼 간단하게 만들어주는 역할 담당
 
-+spring data jpa - 
++ spring data jpa - 
 (JPA는 객체와 데이터베이스 간의 매핑을 통해 개발자가 SQL 쿼리를 직접 작성하지 않고도 데이터베이스를 조작할 수 있게 해줍니다. )
 
-+querydsl - Data JPA와 함께 사용되는 경우, 
++ querydsl - Data JPA와 함께 사용되는 경우, 
 QueryDSL을 사용하여 JPA 엔티티에 대한 동적인 쿼리를 작성할 수 있습니다.  
 querydsl은 pom에서 dependencies 를 알트 엔터 해서 종속성 추가 , 검색창에
 querydsl를 검색해서 support jpa 로 추가했다.
 
-
++ nginx
++ imgscalr
 
 
 - model에서 entity 와 id(기본키 ) 가 어노테이션(@)으로 되어있어야 한다.
