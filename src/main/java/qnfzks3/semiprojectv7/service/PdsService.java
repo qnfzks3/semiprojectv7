@@ -1,16 +1,44 @@
 package qnfzks3.semiprojectv7.service;
 
 
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.multipart.MultipartFile;
 import qnfzks3.semiprojectv7.model.Pds;
+import qnfzks3.semiprojectv7.model.PdsAttach;
+
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import qnfzks3.semiprojectv7.model.PdsReply;
+
+import java.util.List;
+import java.util.Map;
 
 public interface PdsService {
 
 
-    int newPds(Pds pds);       //값이 저장되면 저장된 값으로 받아와야하기에
+    Map<String, Object> newPds(Pds pds);
+    boolean newPdsAttach(
+            MultipartFile attach, Map<String, Object> pinfo);
 
-    boolean newPdsAttach(MultipartFile attach, int pno);
+
+    Map<String, Object> readPds(Integer cpg);
+
+    Pds readOnePds(int pno);
+    PdsAttach readOnePdsAttach(int pno);
 
 
+    HttpHeaders getHeader(String fname, String uuid);
 
+    UrlResource getResource(String fname, String uuid);
+
+    void downfile(int pno);
+
+    List<String> readFtype();
+
+    List<PdsReply> readPdsReply(int pno);
+
+    boolean newReply(PdsReply reply);
+
+    boolean newRreply(PdsReply reply);
 }

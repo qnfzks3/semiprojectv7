@@ -3,19 +3,102 @@ package qnfzks3.semiprojectv7.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+
 import qnfzks3.semiprojectv7.model.Pds;
+import qnfzks3.semiprojectv7.model.PdsAttach;
+import qnfzks3.semiprojectv7.model.PdsReply;
+import qnfzks3.semiprojectv7.repository.PdsReplyRepository;
 import qnfzks3.semiprojectv7.repository.PdsRepository;
+import qnfzks3.semiprojectv7.repository.PdsaRepository;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Repository("pdsdao")
 public class PdsDAOImpl implements PdsDAO {
+    @Autowired PdsRepository pdsRepository;
     @Autowired
-    PdsRepository pdsRepository;
+    PdsaRepository pdsaRepository;
+
+    @Autowired
+    PdsReplyRepository pdsReplyRepository;
 
     @Override
     public int insertPds(Pds pds) {
         // 제목,작성자,본문을 pds테이블에 저장한 뒤
         // 저장시 생성된 pno를 리턴함 - pdsattach 저장시 사용
         return Math.toIntExact(pdsRepository.save(pds).getPno());
+    }
+    @Override
+    public int insertPdsAttach(PdsAttach pa) {
+        return Math.toIntExact(pdsaRepository.save(pa).getPano());
+    }
+
+    @Override
+    public Map<String, Object> selectPds(int cpg) {
+        Pageable paging = PageRequest.of(cpg, 25, Sort.Direction.DESC, "pno");
+
+        Map<String, Object> pds = new HashMap<>();
+        pds.put("pdslist", pdsRepository.findAll(paging).getContent());
+        pds.put("cntpg", pdsRepository.findAll(paging).getTotalPages());
+
+        return pds;
+    }
+    @Override
+    public Pds selectOnePds(int pno) {
+
+        pdsRepository.countViewById((long) pno);   // 조회수 증가
+        return pdsRepository.findById((long)pno).get();
+    }
+
+    @Override
+    public PdsAttach selectOnePdsAttach(int pno) {
+
+        return pdsaRepository.findByPno(pno);
+    }
+
+    @Override
+    public void countDownload(int pno) {
+        pdsaRepository.countDownByPno(pno);
+    }
+
+    @Override
+    public List<String> selectFtype() {
+        return pdsaRepository.findByFtypes();
+    }
+
+    @Override
+    public List<PdsReply> selectPdsReply(int pno) {
+        return pdsReplyRepository.findByPnoOrderByRefnoAscRegdateAsc(pno);
+    }
+
+    @Override
+    public int insertReply(PdsReply reply) {
+
+        // 댓글 저장시 생성되지 않은 댓글번호를
+        // refno에도 저장하기 위해 update문을 한번 더 호출
+
+        PdsReply p = pdsReplyRepository.save(reply);
+        int rpno = Math.toIntExact(p.getRpno());
+
+        pdsReplyRepository.updateRefno( rpno );
+
+        return rpno;
+    }
+
+    @Override
+    public int insertRreply(PdsReply reply) {
+        // 대댓글 저장시 링크로 이미 전달받은 댓글번호가
+        // refno에 대입됨 - 댓글 저장과는 달리 바로 처리
+
+        long rpno = pdsReplyRepository.save(reply).getRpno();
+
+        return (int) rpno;
     }
 
 
