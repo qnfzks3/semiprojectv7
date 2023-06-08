@@ -100,8 +100,8 @@ public class GalleryUtils {
             //원본 이미지를 읽어서 메모리에 이미지 객체를 생성
 
             BufferedImage img= ImageIO.read(new File(refname));
-
-            int imgW = Math.min(img.getHeight(),img.getWidth());
+            // 이미지 크기와 crop 좌표 설정
+            int imgW = Math.min(img.getHeight(),img.getWidth())/2;
             int imgH = imgW;
 
             //지정한 위치를 기준으로 잘라냄
@@ -115,9 +115,9 @@ public class GalleryUtils {
             );
 
 
-            //잘라낸 이미지를 230 x 230 크기로 재조정
+            //잘라낸 이미지를 330 x 350 크기로 재조정
             BufferedImage resizeImg =Scalr.resize(
-              scaleImg,235,200,null
+              scaleImg,330,350,null
             );
             
             //재조정한 이미지를 실제 경로에 저장
