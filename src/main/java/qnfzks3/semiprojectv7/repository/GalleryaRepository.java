@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import qnfzks3.semiprojectv7.model.GalAttach;
 import qnfzks3.semiprojectv7.model.GalleryList;
+import qnfzks3.semiprojectv7.model.GalleryView;
 import qnfzks3.semiprojectv7.model.PdsAttach;
 
 import java.util.List;
@@ -23,4 +24,6 @@ public interface GalleryaRepository extends JpaRepository<GalAttach, Long>{
     //@Query(" select g, a from Gallery g " +
     //       " inner join GalAttach a on g.gno = a.gno ")
     Page<GalleryList> findAllBy(Pageable paging);
+
+    GalleryView findAllByGno(int gno);
 }
