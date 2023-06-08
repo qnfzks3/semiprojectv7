@@ -45,4 +45,10 @@ public class GalleryServiceImpl implements GalleryService {
 
         return (gano > 0) ? true : false;
     }
+
+    @Override
+    public Map<String, Object> readGallery(Integer cpg) {
+        return galdao.selectGallery(cpg);
+    }
+
 }
