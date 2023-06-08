@@ -48,7 +48,7 @@ public class GalleryServiceImpl implements GalleryService {
 
     @Override
     public Map<String, Object> readGallery(Integer cpg) {
-        return galdao.selectGallery(cpg);
+        return galdao.selectGallery(cpg-1);
     }
 
 }
