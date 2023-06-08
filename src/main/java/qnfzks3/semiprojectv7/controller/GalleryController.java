@@ -1,6 +1,7 @@
 package qnfzks3.semiprojectv7.controller;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import qnfzks3.semiprojectv7.model.Gallery;
 import qnfzks3.semiprojectv7.model.Pds;
+import qnfzks3.semiprojectv7.service.GalleryService;
 
 import java.util.List;
 import java.util.Map;
@@ -16,6 +18,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("/gallery")
 public class GalleryController {
+
+    @Autowired
+    GalleryService galsrv;
 
     @GetMapping("/list")
     public String list() {
@@ -34,10 +39,14 @@ public class GalleryController {
     public String writeok(Gallery gallery, List<MultipartFile> attachs) {
         String viewPage = "error";
 
-        /*Map<String, Object> pinfo = pdssrv.newPds(pds);
-        if (!attach.isEmpty()) // 첨부파일이 존재한다면
-            pdssrv.newPdsAttach(attach, pinfo);
-        viewPage = "redirect:/pds/list";*/
+
+
+        if (!attachs.isEmpty()) {// 첨부파일이 존재한다면
+            Map<String, Object> ginfo = galsrv.newGallery(gallery);
+            galsrv.newGalAttach(attachs, ginfo);
+            viewPage = "redirect:/gallery/list";
+        }
+
 
         return viewPage;
     }

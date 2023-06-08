@@ -21,8 +21,6 @@ import java.time.LocalDate;
 @ToString
 public class Pds {
 
-    @Autowired PdsService pdssrv;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long pno;

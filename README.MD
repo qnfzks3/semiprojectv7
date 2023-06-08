@@ -20,7 +20,10 @@ QueryDSL을 사용하여 JPA 엔티티에 대한 동적인 쿼리를 작성할 �
 querydsl은 pom에서 dependencies 를 알트 엔터 해서 종속성 추가 , 검색창에
 querydsl를 검색해서 support jpa 로 추가했다.
 
-+ nginx
++ nginx    -NGINX를 사용하여 이미지 파일을 서비스하려면, 
+          먼저 NGINX 웹 서버를 설치하고 구성해야 합니다. 
+          그런 다음 웹 서버 구성 파일에서 정적 파일 디렉토리를 지정하고,
+      해당 디렉토리에 이미지 파일을 배치하면 NGINX가 해당 이미지 파일을 클라이언트에게 제공할 수 있습니다.
 + imgscalr
 
 
