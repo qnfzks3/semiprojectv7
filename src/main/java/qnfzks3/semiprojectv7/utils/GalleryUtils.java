@@ -1,11 +1,15 @@
 package qnfzks3.semiprojectv7.utils;
 
+import org.imgscalr.Scalr;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import qnfzks3.semiprojectv7.model.GalAttach;
 import qnfzks3.semiprojectv7.model.PdsAttach;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -77,6 +81,52 @@ public class GalleryUtils {
 
 
     public void makeThumbnail(GalAttach ga, Object uuid) {
+
+        //업로드된 이미지들 중 첫번째 이미지에 대해 썸내일 생성
+        // 파일 이름을 ;으로 나눈 뒤 첫 번째 파일 명을 추출
+        String basename = ga.getFname().split(";")[0];
+        
+        
+        //서버에 업로드된 파일로 제정의 : 썸내일 생성 시 참고할 파일
+        String refname = saveImgDir + basename;  
+
+        //썸네일 이미지 경로 정의
+        String thumbname = saveImgDir + "_thumbs/small_" + basename;  //원래 파일에 경로 잡아줌
+
+
+        System.out.println(refname+","+refname);
+
+        try {
+            //원본 이미지를 읽어서 메모리에 이미지 객체를 생성
+
+            BufferedImage img= ImageIO.read(new File(refname));
+
+            int imgW = Math.min(img.getHeight(),img.getWidth());
+            int imgH = imgW;
+
+            //지정한 위치를 기준으로 잘라냄
+            //crop(대상, x좌표 , y좌표 , 잘라낼너비, 잘라낼 높이 ,투명도) - 이미지가 있을 때 이미지를 잘라내는 방법은
+            //시작 지점을 기준으로 잘라내거나 , 시작점에서 얼만큼 떨어진 위치로부터 잘라냄
+            BufferedImage scaleImg = Scalr.crop(img,
+                    (img.getWidth()-imgW)/2,      //crop할 좌표
+                    (img.getHeight()-imgH)/2,
+                    imgW,imgH,     //crop할 이미지 크기
+                    null
+            );
+
+
+            //잘라낸 이미지를 230 x 230 크기로 재조정
+            BufferedImage resizeImg =Scalr.resize(
+              scaleImg,235,200,null
+            );
+            
+            //재조정한 이미지를 실제 경로에 저장
+            ImageIO.write(resizeImg,"png",new File(thumbname));
+
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
 }
