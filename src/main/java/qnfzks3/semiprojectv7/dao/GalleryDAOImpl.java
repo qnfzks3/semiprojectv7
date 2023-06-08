@@ -7,6 +7,13 @@ import qnfzks3.semiprojectv7.model.GalAttach;
 import qnfzks3.semiprojectv7.model.Gallery;
 import qnfzks3.semiprojectv7.repository.GalleryRepository;
 import qnfzks3.semiprojectv7.repository.GalleryaRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Repository("galdao")
 public class GalleryDAOImpl implements GalleryDAO{
@@ -34,5 +41,16 @@ public class GalleryDAOImpl implements GalleryDAO{
         return Math.toIntExact(galleryaRepository.save(ga).getGano());
     }
 
+    @Override
+    public Map<String, Object> selectGallery(Integer cpg) {
 
+        Pageable paging = PageRequest.of(cpg, 25, Sort.Direction.DESC, "gno");
+
+        Map<String, Object> gals = new HashMap<>();
+        // Gallery와 GalAttach를 조인해서 리스트로 가져옴
+        gals.put("gallist", galleryRepository.findAllBy(paging).getContent());
+        gals.put("cntpg", galleryRepository.findAllBy(paging).getTotalPages());
+
+        return gals;
+    }
 }
