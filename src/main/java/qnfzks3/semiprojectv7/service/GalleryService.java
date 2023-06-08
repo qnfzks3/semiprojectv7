@@ -12,4 +12,6 @@ public interface GalleryService {
     boolean newGalAttach(List<MultipartFile> attachs, Map<String, Object> ginfo);
 
     Map<String, Object> readGallery(Integer cpg);
+
+    Object readOneGallery(int gno);
 }
